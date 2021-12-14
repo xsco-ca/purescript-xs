@@ -6,7 +6,9 @@ const uuid = require("uuid");
 
 const CryptoJS = require("crypto-js");
 
-const nil = "00000000-0000-0000-0000-000000000000"
+const nil = "00000000-0000-0000-0000-000000000000";
+
+const caught = "";
 
 exports.uuidv0 = nil; 
 
@@ -35,12 +37,20 @@ exports.uuidv5 = function(w) {
 
 exports.encrypt = function(w) {
   return function(x) {
-    return CryptoJS.AES.encrypt(x,w).toString();
+    try {
+      return CryptoJS.AES.encrypt(x,w).toString();
+    } catch (e) {
+      return caught;
+    }
   };
 };
 
 exports.decrypt = function(w) {
   return function(x) {
-    return CryptoJS.AES.decrypt(x,w).toString(CryptoJS.enc.Utf8);
+    try {
+      return CryptoJS.AES.decrypt(x,w).toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+      return caught;
+    }
   };
 };
