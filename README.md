@@ -1,1 +1,1 @@
-# xs
+# purescript-xs
